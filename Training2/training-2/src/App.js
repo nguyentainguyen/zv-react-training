@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import Modal from "./components/Modal";
+import CloseButton from "./components/CloseButton";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,7 +17,12 @@ function App() {
   return (
     <div className="App">
       <button onClick={handleClick}>Open Modal</button>
-      {isOpen && <Modal content="hello" closeModal={closeModal} />}
+      {isOpen && (
+        <Modal>
+          Hello
+          <CloseButton closeModal={closeModal} />
+        </Modal>
+      )}
     </div>
   );
 }
