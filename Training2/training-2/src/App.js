@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="App">
       <button onClick={handleClick}>Open Modal</button>
-      {isOpen && <Modal closeModal={closeModal} />}
+      {isOpen && <Modal content="hello" closeModal={closeModal} />}
     </div>
   );
 }

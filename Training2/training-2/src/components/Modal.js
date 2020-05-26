@@ -1,10 +1,12 @@
 import React from "react";
 import "./Modal.css";
+import Button from "./Button";
 
-function Modal({ closeModal }) {
+function Modal({ closeModal, content }) {
   return (
     <div className="modal">
-      <button onClick={closeModal}>Close</button>
+      {content}
+      <Button closeModal={closeModal}></Button>
     </div>
   );
 }
