@@ -12,7 +12,7 @@ function SearchInput({ onSubmit }) {
         text
       };
       onSubmit(formValues);
-    }, 1000),
+    }, 3000),
     [onSubmit]
   );
 
