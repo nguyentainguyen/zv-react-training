@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./App.css";
 import Country from "./components/Country";
 import axios from "axios";
@@ -7,13 +7,12 @@ import SearchInput from "./components/SearchInput";
 function App() {
   const [listCountry, setListCountry] = useState([]);
 
-  if (listCountry.length > 0) window.test = listCountry;
-
   useEffect(() => {
     getAllCountry();
   }, []);
 
   function getAllCountry() {
+    console.log("render");
     axios
       .get("https://restcountries.eu/rest/v2/all")
       .then(function(response) {
@@ -24,9 +23,8 @@ function App() {
       });
   }
 
-  function handleSubmit(countryName) {
+  const handleSubmit = useCallback(countryName => {
     if (countryName.text.length > 0) {
-      console.log(countryName.text);
       axios
         .get(`https://restcountries.eu/rest/v2/name/${countryName.text}`)
         .then(function(response) {
@@ -38,7 +36,7 @@ function App() {
     } else {
       getAllCountry();
     }
-  }
+  }, []);
 
   return (
     <div className="App">
