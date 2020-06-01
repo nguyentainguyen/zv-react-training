@@ -1,4 +1,4 @@
-const todos = (state = [], action) => {
+const todos = (state = [], action, data) => {
   switch (action.type) {
     case "ADD_TODO":
       return [
@@ -14,11 +14,11 @@ const todos = (state = [], action) => {
         todo.id === action.id ? { ...todo, completed: !todo.completed } : todo
       );
 
-    // return state.filter(todo => todo.id !== action.id);
-
     case "DELETE_TODO":
       return state.filter(todo => todo.id !== action.id);
 
+    case "RECEIVE_API_DATA":
+      return data;
     default:
       return state;
   }

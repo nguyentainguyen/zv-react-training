@@ -21,6 +21,15 @@ export const deleteTodo = id => ({
   id
 });
 
+export const requestApiData = () => ({
+  type: "REQUEST_API_DATA"
+});
+
+export const receiveApiData = data => ({
+  type: "RECEIVE_API_DATA",
+  data
+});
+
 export const VisibilityFilters = {
   SHOW_ALL: "SHOW_ALL",
   SHOW_COMPLETED: "SHOW_COMPLETED",
