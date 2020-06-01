@@ -7,13 +7,14 @@ Todo.propTypes = {
   text: PropTypes.string.isRequired
 };
 
-function Todo({ onClick, completed, text }) {
+function Todo({ onClick, completed, text, deleteClick }) {
   return (
     <li
       onClick={onClick}
       style={{ textDecoration: completed ? "line-through" : "none" }}
     >
       {text}
+      <button onClick={deleteClick}>Delete</button>
     </li>
   );
 }
