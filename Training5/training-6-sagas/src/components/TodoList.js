@@ -1,16 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import {
+  onDeleteTodo,
+  onRequestTodo,
+  onAddTodo,
+  onEditTodo
+} from "../actions/index";
+import AddTodo from "./AddTodo";
+
 TodoList.propTypes = {};
 
-function TodoList({ fetching, todo, onRequestTodo, onDeleteTodo, error }) {
-  console.log(todo);
+function TodoList({
+  fetching,
+  todo,
+  onRequestTodo,
+  onDeleteTodo,
+  error,
+  onAddTodo,
+  onEditTodo
+}) {
+  const [editValue, setEditValue] = useState("");
+  const onDeleteClick = id => {
+    onDeleteTodo(id);
+  };
+  const handleEditChange = (event, id) => {
+    setEditValue(event.currentTarget.innerText);
+    console.log("handleEditChange -> editValueFFFFFF", { editValue });
+    onEditTodo(id, editValue);
+  };
+
   return (
     <div>
+      <AddTodo handleSubmit={onAddTodo} />
       <ul>
         {todo.map(todoChild => (
           <li key={todoChild.id}>
-            {todoChild.name}
-            <button onClick={onDeleteTodo}>Delete</button>
+            <div
+              contentEditable="true"
+              suppressContentEditableWarning="true"
+              onInput={e => handleEditChange(e, todoChild.id)}
+            >
+              {todoChild.name}
+            </div>
+
+            <button onClick={() => onDeleteClick(todoChild.id)}>Delete</button>
           </li>
         ))}
       </ul>
@@ -34,10 +67,9 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onRequestTodo: () => dispatch({ type: "API_CALL_REQUEST" }),
-    onDeleteTodo: () => dispatch({ type: "DELETE_TODO" })
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
+export default connect(mapStateToProps, {
+  onRequestTodo,
+  onDeleteTodo,
+  onAddTodo,
+  onEditTodo
+})(TodoList);

@@ -9,7 +9,7 @@ import createSagaMiddleware from "redux-saga";
 import { Provider } from "react-redux";
 
 import { reducer } from "./reducers/TodosReducer";
-import { watcherSaga } from "./sagas/index";
+import rootSaga from "./sagas/index";
 
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware();
@@ -25,7 +25,7 @@ let store = createStore(
 );
 
 // run the saga
-sagaMiddleware.run(watcherSaga);
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
