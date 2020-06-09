@@ -24,9 +24,7 @@ function* workerGetUser({ token }) {
         headers: { Authorization: `Bearer ${token}` }
       })
     );
-
     const payload = response.data;
-
     yield put({ type: "GET_USER", payload });
   } catch (e) {
     console.log(e);

@@ -5,7 +5,6 @@ const initialState = {
 };
 
 export function getUserReducer(state = initialState, action) {
-  console.log("getUserReducer -> action", action);
   switch (action.type) {
     case types.GET_USER:
       return { ...state, data: action.payload };

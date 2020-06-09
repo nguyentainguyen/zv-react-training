@@ -3,25 +3,26 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { onLoginRequest } from "../actions/index";
-
-const layout = {
-  labelCol: {
-    span: 8
-  },
-  wrapperCol: {
-    span: 16
-  }
-};
-const tailLayout = {
-  wrapperCol: {
-    offset: 8,
-    span: 16
-  }
-};
+import "antd/dist/antd.css";
+import "./login.css";
 
 function Login({ onLoginRequest, login }) {
+  const layout = {
+    labelCol: {
+      span: 8
+    },
+    wrapperCol: {
+      span: 16
+    }
+  };
+  const tailLayout = {
+    wrapperCol: {
+      offset: 8,
+      span: 16
+    }
+  };
+  console.log(localStorage.getItem("token"));
   const onFinish = values => {
-    console.log("Success:", values);
     onLoginRequest(values);
   };
 
@@ -32,8 +33,9 @@ function Login({ onLoginRequest, login }) {
   if (localStorage.getItem("token")) {
     return <Redirect to="/protected"></Redirect>;
   }
+
   return (
-    <div className="login-container">
+    <div className="login-form">
       <Form
         {...layout}
         name="basic"
