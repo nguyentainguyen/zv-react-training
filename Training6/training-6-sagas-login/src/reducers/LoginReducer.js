@@ -35,6 +35,14 @@ export function loginReducer(state = initialState, action) {
         successful: false
       };
 
+    case types.LOG_OUT:
+      return {
+        errors: [],
+        requesting: false,
+        successful: false,
+        token: []
+      };
+
     default:
       return state;
   }

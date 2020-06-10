@@ -1,35 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { onGetUser } from "../actions/index";
+import { GetUser, LogOut } from "../actions/index";
 
 ProtectedPage.propTypes = {};
 
-function ProtectedPage({ onGetUser, login, user }) {
-  const tokenCurrent = localStorage.getItem("token");
-  const [redirect, setRedirect] = useState(false);
+function ProtectedPage({ GetUser, login, user, LogOut }) {
+  console.log("ProtectedPage -> user", user);
+  const tokenCurrent = login.token;
   const [isBusy, setBusy] = useState(true);
-  const [data, setData] = useState(user.data);
 
   useEffect(() => {
-    onGetUser(tokenCurrent);
+    GetUser(tokenCurrent);
     setTimeout(() => setBusy(false), 1000);
-    setData(user.data);
   }, []);
 
   function handleLogout() {
-    localStorage.removeItem("token");
-    setRedirect(true);
-    renderRedirect();
+    LogOut();
   }
 
-  const renderRedirect = () => {
-    if (redirect === true) {
-      return <Redirect to="/login"></Redirect>;
-    }
-  };
-
-  if (!localStorage.getItem("token")) {
+  if (!login.successful) {
     return <Redirect to="/login"></Redirect>;
   }
 
@@ -41,11 +31,11 @@ function ProtectedPage({ onGetUser, login, user }) {
         <>
           <h2>User Detail:</h2>
           <ul>
-            <li>Full Name: {data.fullName}</li>
-            <li>Email: {data.email}</li>
-            <li>password: {data.password}</li>
-            <li>id: {data.id}</li>
-            <li>role: {data.role}</li>
+            <li>Full Name: {user.data.fullName}</li>
+            <li>Email: {user.data.email}</li>
+            <li>password: {user.data.password}</li>
+            <li>id: {user.data.id}</li>
+            <li>role: {user.data.role}</li>
           </ul>
           <input type="button" value="Logout" onClick={handleLogout}></input>
         </>
@@ -62,5 +52,6 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  onGetUser
+  GetUser,
+  LogOut
 })(ProtectedPage);

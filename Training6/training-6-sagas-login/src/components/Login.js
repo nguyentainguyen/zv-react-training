@@ -2,11 +2,12 @@ import { Button, Form, Input } from "antd";
 import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { onLoginRequest } from "../actions/index";
+import { LoginRequest } from "../actions/index";
 import "antd/dist/antd.css";
 import "./login.css";
 
-function Login({ onLoginRequest, login }) {
+function Login({ LoginRequest, login }) {
+  console.log("Login -> login", login);
   const layout = {
     labelCol: {
       span: 8
@@ -21,16 +22,15 @@ function Login({ onLoginRequest, login }) {
       span: 16
     }
   };
-  console.log(localStorage.getItem("token"));
   const onFinish = values => {
-    onLoginRequest(values);
+    LoginRequest(values);
   };
 
   const onFinishFailed = errorInfo => {
     console.log("Failed:", errorInfo);
   };
 
-  if (localStorage.getItem("token")) {
+  if (login.successful) {
     return <Redirect to="/protected"></Redirect>;
   }
 
@@ -88,5 +88,5 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  onLoginRequest
+  LoginRequest
 })(Login);

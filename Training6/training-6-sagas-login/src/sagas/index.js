@@ -5,7 +5,6 @@ function* workerLogin({ values }) {
   try {
     const url = "http://localhost:9000/login";
     const response = yield call(axios.post, url, values);
-    window.localStorage.setItem("token", response.data.token);
     if (!response.data.token) {
       yield put({ type: "LOGIN_ERROR", error: response.data.error });
     } else {
