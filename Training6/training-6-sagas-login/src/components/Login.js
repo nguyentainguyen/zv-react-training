@@ -2,12 +2,11 @@ import { Button, Form, Input } from "antd";
 import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { LoginRequest } from "../actions/index";
+import { loginRequest } from "../actions/index";
 import "antd/dist/antd.css";
 import "./login.css";
 
-function Login({ LoginRequest, login }) {
-  console.log("Login -> login", login);
+function Login({ loginRequest, login }) {
   const layout = {
     labelCol: {
       span: 8
@@ -23,7 +22,7 @@ function Login({ LoginRequest, login }) {
     }
   };
   const onFinish = values => {
-    LoginRequest(values);
+    loginRequest(values);
   };
 
   const onFinishFailed = errorInfo => {
@@ -88,5 +87,5 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  LoginRequest
+  loginRequest
 })(Login);

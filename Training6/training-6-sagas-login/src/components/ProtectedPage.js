@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { GetUser, LogOut } from "../actions/index";
+import { getUser, logOut } from "../actions/index";
 
 ProtectedPage.propTypes = {};
 
-function ProtectedPage({ GetUser, login, user, LogOut }) {
-  console.log("ProtectedPage -> user", user);
+function ProtectedPage({ getUser, login, user, logOut }) {
+  console.log("ProtectedPage -> user.loading", user.loading);
   const tokenCurrent = login.token;
-  const [isBusy, setBusy] = useState(true);
 
   useEffect(() => {
-    GetUser(tokenCurrent);
-    setTimeout(() => setBusy(false), 1000);
+    getUser(tokenCurrent);
   }, []);
 
   function handleLogout() {
-    LogOut();
+    logOut();
   }
 
   if (!login.successful) {
@@ -25,9 +23,7 @@ function ProtectedPage({ GetUser, login, user, LogOut }) {
 
   return (
     <div>
-      {isBusy ? (
-        <h1>....loading</h1>
-      ) : (
+      {user.loaded ? (
         <>
           <h2>User Detail:</h2>
           <ul>
@@ -39,6 +35,8 @@ function ProtectedPage({ GetUser, login, user, LogOut }) {
           </ul>
           <input type="button" value="Logout" onClick={handleLogout}></input>
         </>
+      ) : (
+        <h1>...loading</h1>
       )}
     </div>
   );
@@ -52,6 +50,6 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  GetUser,
-  LogOut
+  getUser,
+  logOut
 })(ProtectedPage);

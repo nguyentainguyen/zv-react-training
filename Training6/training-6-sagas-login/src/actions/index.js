@@ -6,16 +6,16 @@ export const types = {
   LOG_OUT: "LOG_OUT"
 };
 
-export const LoginRequest = values => ({
+export const loginRequest = values => ({
   type: types.LOGIN_REQUESTING,
   values
 });
 
-export const GetUser = token => ({
+export const getUser = token => ({
   type: types.GET_USER,
   token
 });
 
-export const LogOut = () => ({
+export const logOut = () => ({
   type: types.LOG_OUT
 });

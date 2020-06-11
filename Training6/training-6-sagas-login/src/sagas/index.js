@@ -24,7 +24,8 @@ function* workerGetUser({ token }) {
       })
     );
     const payload = response.data;
-    yield put({ type: "GET_USER", payload });
+    const loaded = true;
+    yield put({ type: "GET_USER", payload, loaded });
   } catch (e) {
     console.log(e);
   }
