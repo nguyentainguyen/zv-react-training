@@ -2,7 +2,6 @@ import { types } from "../actions/index.js";
 
 const initialState = {
   requesting: false,
-  successful: false,
   errors: [],
   token: null
 };
@@ -12,14 +11,12 @@ export function loginReducer(state = initialState, action) {
     case types.LOGIN_REQUESTING:
       return {
         requesting: true,
-        successful: false,
         errors: []
       };
     case types.LOGIN_SUCCESS:
       return {
         errors: [],
         requesting: false,
-        successful: true,
         token: action.token
       };
 
@@ -31,16 +28,14 @@ export function loginReducer(state = initialState, action) {
             time: new Date()
           }
         ]),
-        requesting: false,
-        successful: false
+        requesting: false
       };
 
     case types.LOG_OUT:
       return {
         errors: [],
         requesting: false,
-        successful: false,
-        token: []
+        token: null
       };
 
     default:

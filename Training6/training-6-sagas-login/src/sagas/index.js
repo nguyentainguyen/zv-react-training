@@ -1,5 +1,5 @@
 import axios from "axios";
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, takeLatest, select } from "redux-saga/effects";
 
 function* workerLogin({ values }) {
   try {
@@ -15,7 +15,8 @@ function* workerLogin({ values }) {
   }
 }
 
-function* workerGetUser({ token }) {
+function* workerGetUser() {
+  const token = yield select(state => state.login.token);
   try {
     const url = "http://localhost:9000/api/users/my";
     const response = yield call(() =>
@@ -25,7 +26,7 @@ function* workerGetUser({ token }) {
     );
     const payload = response.data;
     const loaded = true;
-    yield put({ type: "GET_USER", payload, loaded });
+    yield put({ type: "GET_USER_SUCCESS", payload, loaded });
   } catch (e) {
     console.log(e);
   }

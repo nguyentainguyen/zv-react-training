@@ -6,18 +6,15 @@ import { getUser, logOut } from "../actions/index";
 ProtectedPage.propTypes = {};
 
 function ProtectedPage({ getUser, login, user, logOut }) {
-  console.log("ProtectedPage -> user.loading", user.loading);
-  const tokenCurrent = login.token;
-
   useEffect(() => {
-    getUser(tokenCurrent);
+    getUser();
   }, []);
 
   function handleLogout() {
     logOut();
   }
 
-  if (!login.successful) {
+  if (login.token === null) {
     return <Redirect to="/login"></Redirect>;
   }
 

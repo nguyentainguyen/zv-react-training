@@ -7,7 +7,7 @@ const initialState = {
 
 export function getUserReducer(state = initialState, action) {
   switch (action.type) {
-    case types.GET_USER:
+    case types.GET_USER_SUCCESS:
       return { ...state, data: action.payload, loaded: action.loaded };
 
     default:

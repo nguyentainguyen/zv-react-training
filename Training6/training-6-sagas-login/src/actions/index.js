@@ -3,6 +3,7 @@ export const types = {
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
   LOGIN_ERROR: "LOGIN_ERROR",
   GET_USER: "GET_USER",
+  GET_USER_SUCCESS: "GET_USER_SUCCESS",
   LOG_OUT: "LOG_OUT"
 };
 
@@ -11,9 +12,8 @@ export const loginRequest = values => ({
   values
 });
 
-export const getUser = token => ({
-  type: types.GET_USER,
-  token
+export const getUser = () => ({
+  type: types.GET_USER
 });
 
 export const logOut = () => ({

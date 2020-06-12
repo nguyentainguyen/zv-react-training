@@ -29,7 +29,7 @@ function Login({ loginRequest, login }) {
     console.log("Failed:", errorInfo);
   };
 
-  if (login.successful) {
+  if (login.token) {
     return <Redirect to="/protected"></Redirect>;
   }
 
